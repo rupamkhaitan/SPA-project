@@ -145,31 +145,31 @@ spa.shell = (function () {
 		// Begin merge changes into anchor map
 		KEYVAL:
 		for ( key_name in arg_map ) {
-		if ( arg_map.hasOwnProperty( key_name ) ) {
-		// skip dependent keys during iteration
-		if ( key_name.indexOf( '_' ) === 0 ) { continue KEYVAL; }
-		// update independent key value
-		anchor_map_revise[key_name] = arg_map[key_name];
-		// update matching dependent key
-		key_name_dep = '_' + key_name;
-		if ( arg_map[key_name_dep] ) {
-		anchor_map_revise[key_name_dep] = arg_map[key_name_dep];
-		}
-		else {
-		delete anchor_map_revise[key_name_dep];
-		delete anchor_map_revise['_s' + key_name_dep];
-		}
-		}
+			if ( arg_map.hasOwnProperty( key_name ) ) {
+				// skip dependent keys during iteration
+				if ( key_name.indexOf( '_' ) === 0 ) { continue KEYVAL; }
+				// update independent key value
+				anchor_map_revise[key_name] = arg_map[key_name];
+				// update matching dependent key
+				key_name_dep = '_' + key_name;
+				if ( arg_map[key_name_dep] ) {
+					anchor_map_revise[key_name_dep] = arg_map[key_name_dep];
+				}
+				else {
+					delete anchor_map_revise[key_name_dep];
+					delete anchor_map_revise['_s' + key_name_dep];
+				}
+			}
 		}
 		// End merge changes into anchor map
 		// Begin attempt to update URI; revert if not successful
 		try {
-		$.uriAnchor.setAnchor( anchor_map_revise );
+			$.uriAnchor.setAnchor( anchor_map_revise );
 		}
 		catch ( error ) {
-		// replace URI with existing state
-		$.uriAnchor.setAnchor( stateMap.anchor_map,null,true );
-		bool_return = false;
+			// replace URI with existing state
+			$.uriAnchor.setAnchor( stateMap.anchor_map,null,true );
+			bool_return = false;
 		}
 		// End attempt to update URI...
 		return bool_return;
@@ -199,8 +199,8 @@ spa.shell = (function () {
 		// attempt to parse anchor
 		try { anchor_map_proposed = $.uriAnchor.makeAnchorMap(); }
 		catch ( error ) {
-		$.uriAnchor.setAnchor( anchor_map_previous, null, true );
-		return false;
+			$.uriAnchor.setAnchor( anchor_map_previous, null, true );
+			return false;
 		}
 		stateMap.anchor_map = anchor_map_proposed;
 		// convenience vars
@@ -208,21 +208,20 @@ spa.shell = (function () {
 		_s_chat_proposed = anchor_map_proposed._s_chat;
 		// Begin adjust chat component if changed
 		if ( ! anchor_map_previous
-		|| _s_chat_previous !== _s_chat_proposed
-		) {
-		s_chat_proposed = anchor_map_proposed.chat;
-		switch ( s_chat_proposed ) {
-		case 'open' :
-		toggleChat( true );
-		break;
-		case 'closed' :
-		toggleChat( false );
-		break;
-		default :
-		toggleChat( false );
-		delete anchor_map_proposed.chat;
-		$.uriAnchor.setAnchor( anchor_map_proposed, null, true );
-		}
+		|| _s_chat_previous !== _s_chat_proposed) {
+			s_chat_proposed = anchor_map_proposed.chat;
+			switch ( s_chat_proposed ) {
+				case 'open' :
+								toggleChat( true );
+								break;
+				case 'closed' :
+								toggleChat( false );
+								break;
+				default :
+								toggleChat( false );
+								delete anchor_map_proposed.chat;
+								$.uriAnchor.setAnchor( anchor_map_proposed, null, true );
+			}
 		}
 		// End adjust chat component if changed
 		return false;
