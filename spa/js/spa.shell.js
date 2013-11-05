@@ -90,6 +90,9 @@ spa.shell = (function () {
 		stateMap.$container = $container;
 		$container.html( configMap.main_html );
 		setJqueryMap();
+		// test toggle
+		setTimeout( function () {toggleChat( true ); }, 3000 );
+		setTimeout( function () {toggleChat( false );}, 8000 );
 	};
 	// End PUBLIC method /initModule/
 	return { initModule : initModule };
