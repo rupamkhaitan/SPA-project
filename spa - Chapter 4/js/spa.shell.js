@@ -253,6 +253,10 @@ spa.shell = (function () {
 		$.uriAnchor.configModule({
 			schema_map : configMap.anchor_schema_map
 		});
+		// configure and initialize feature modules
+		spa.chat.configModule( {} );
+		spa.chat.initModule( jqueryMap.$chat );
+		console.log(jqueryMap);
 		// Handle URI anchor change events.
 		// This is done /after/ all feature modules are configured
 		// and initialized, otherwise they will not be ready to handle
@@ -264,6 +268,8 @@ spa.shell = (function () {
 		.trigger( 'hashchange' );
 	}
 	// End PUBLIC method /initModule/
-	return { initModule : initModule };
+	return { 
+		initModule : initModule 
+	};
 	//------------------- END PUBLIC METHODS ---------------------
 }());
